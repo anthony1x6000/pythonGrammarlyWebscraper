@@ -1,0 +1,16 @@
+# Folders and file extensions
+__pycache__
+hidden/
+!/drivers/
+/drivers/**
+# !/drivers/Preferences
+
+# Generated Files
+temp*
+cookie[0-9].txt
+*.log
+
+# VPN
+vpn*
+
+private.txt
