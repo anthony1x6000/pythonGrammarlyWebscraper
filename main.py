@@ -90,7 +90,7 @@ def Verify(verifyThis):
             print("URL BAD, Cookie didn't work\n================================")
     except Exception as e:
         print("Exception:", e)
-        browser.quit()
+        browser.close()
 def dec64(encoded_string):
     decoded_string = base64.b64decode(encoded_string)
     return decoded_string.decode()
@@ -144,11 +144,11 @@ else:
     print("May have hit an exception. Look at previous output or log. ")
 print("Cleaning up...")
 try:
-    browser.quit()
+    browser.close()
     print(" Browser closed.")
 except Exception as e:
-    print(" Exception when running browser.quit():", e)
+    print(" Exception when running browser.close():", e)
     if ('invalid' in str(e)):
-        print('exception:', e)
+        print("You can probably ignore that exception.")
 print(" Script Finished.")
 # /\/\/\ Final Section /\/\/\
