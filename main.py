@@ -7,7 +7,6 @@ from urllib.parse import urlparse
 # \/\/ Webdriver & browser stuff \/\/
 driver_path = 'drivers/chromedriver.exe'
 chrome_path = 'drivers/browser/chrome.exe'
-# chrome_path = 'drivers/browser/brave-portable.exe'
 option = webdriver.ChromeOptions()
 option.binary_location = chrome_path
 option.add_argument("--disable-gpu, --window-size=640,480")
@@ -41,10 +40,6 @@ def SiteScrape(siteList, xpath):
     global xPathTxt
     print("Starting to scrape...")
     try: 
-        if (noscrape):
-            raise Exception("  noscrape is True")
-        if (foundWorking):
-            raise Exception("  Already found working cookie.")
         domain = urlparse(siteList[0]).netloc
         print("Using site:", domain)
         for site in siteList:
@@ -56,8 +51,7 @@ def SiteScrape(siteList, xpath):
             tCount += 1
         print("Scraped through %d page(s)" % tCount)
     except Exception as e:
-        print("!!!EXCEPTION!!!")
-        print("", e)
+        print("Exception in SiteScrape:", e)
 def Verify(verifyThis):
     global siteSet
     global foundWorking
@@ -107,8 +101,7 @@ def postNum():
     return finalPaths
 def siteInit(baseurl, postXpath, urlCount, *countBypass):
     baseurl = dec64(baseurl)
-    if noscrape:
-        print("noscrape is", noscrape)
+    if (noscrape or foundWorking):
         return
     sites = []
     if (countBypass):
@@ -129,7 +122,6 @@ vcount = 0
 siteInit("aHR0cHM6Ly9pbmZva2lrLmNvbS9ncmFtbWFybHktJWQ=", '/html/body/div[7]/div[2]/div/div[2]/div[1]/div/div[2]/pre/code', 4) # American (better) english is more common here.
 siteInit("aHR0cHM6Ly93d3cubGlua3N0cmlja3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVk", '/html/body/div[2]/section[1]/div/div[2]/div/div[4]/div/pre/code', 6)
 
-print("Trying JS sites. May be slower with security risks.")
 siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVkLXVwZGF0ZWQv", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 1, {'ovride':1})
 siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWUtJWQtdXBkYXRlZC8=", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 6)
 
@@ -150,5 +142,6 @@ except Exception as e:
     print(" Exception when running browser.close():", e)
     if ('invalid' in str(e)):
         print("You can probably ignore that exception.")
-print(" Script Finished.")
+print("Script Finished.")
+exit()
 # /\/\/\ Final Section /\/\/\
