@@ -27,6 +27,12 @@ Script is intended to demonstrate what I've learned in Python so far.
 
 To download python requirements send ``pip install -r requirements.txt``
 
+# Never pay for this service
+
+![screenshot](https://files.catbox.moe/9h2th9.png)
+
+I can assure you there are more worthwhile investments for your money than a keylogger.
+
 # License
 
 See LICENSE
