@@ -38,7 +38,9 @@ Government agencies, regulators, and other authorized third parties. We may disc
 ```
 
 </a>
-<img src="https://files.catbox.moe/9h2th9.png"  height=100 /> <img src="https://files.catbox.moe/af1wbx.jpg" height=100 />
+<div>
+<img src="https://files.catbox.moe/9h2th9.png" height=100 /><img src="https://files.catbox.moe/af1wbx.jpg" height=100 />
+</div>
 
 # License
 
