@@ -1,4 +1,4 @@
-# Python 3 Cookie Webscraper Public | Windows x64 LOCAL |
+# Python 3 Cookie Webscraper | Windows x64 |
 
 ```
  __   _ _____ _  _  _   
@@ -7,13 +7,12 @@
  _  _  _ _____  _______     ________   _ ______  /
  |  |  ||     ||_____/|____/   |  | \  ||  ____ / 
  |__|__||_____||    \_|    \___|__|  \_||_____|.  
-    Public Release
 ```
 
 ## Disclaimer
 
 This script is for educational purposes only.
-Script is intended to demonstrate what I've learned in Python so far.
+Script is intended to demonstrate the capabilities of webscraping.
 
 # Setup
 
@@ -29,11 +28,17 @@ Script is intended to demonstrate what I've learned in Python so far.
 
 To download python requirements send ``pip install -r requirements.txt``
 
-# Never pay for this service
+## dont pay
 
-![screenshot](https://files.catbox.moe/9h2th9.png)
+I can assure you there are more worthwhile investments for your money than a glorified keylogger. Hopefully, another service will be able to replace this. Maybe something built on OpenAi’s GPT-3.5... Though, OpenAI’s privacy policy for their service ChatGPT isn’t much better.
+<a href="https://www.grammarly.com/privacy-policy">
 
-I can assure you there are more worthwhile investments for your money than a privacy invasive keylogger disguised as an educational tool.
+```
+Government agencies, regulators, and other authorized third parties. We may disclose your information to governmental agencies, regulators, and other third parties if we determine that such disclosure is reasonably necessary to (a) comply with any applicable law, regulation, legal process, or appropriate governmental request; (b) protect any person from death or serious bodily injury; (c) prevent fraud, harm, or abuse of Grammarly or our users; or (d) perform a task carried out in the public interest.
+```
+
+</a>
+<img src="https://files.catbox.moe/9h2th9.png"  height=100 /> <img src="https://files.catbox.moe/af1wbx.jpg" height=100 />
 
 # License
 
