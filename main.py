@@ -43,6 +43,7 @@ def SiteScrape(siteList, xpath):
         domain = urlparse(siteList[0]).netloc
         print("Using site:", domain)
         for site in siteList:
+            if (foundWorking): return
             browser.get(site)
             print(" URL: ", browser.current_url)
             xPathTxt = browser.find_element_by_xpath(xpath) # Get cookie found in xpath provided
@@ -72,7 +73,7 @@ def Verify(verifyThis):
             pyperclip.copy(verifyThis)
             print("Copied cookie to clipboard.")
             foundWorking = True
-            raise Exception('''
+            print('''
  _       __              __    _                                      __    _          ____                          __
 | |     / /____   _____ / /__ (_)____   ____ _   _____ ____   ____   / /__ (_)___     / __/____   __  __ ____   ____/ /
 | | /| / // __ \ / ___// //_// // __ \ / __ `/  / ___// __ \ / __ \ / //_// // _ \   / /_ / __ \ / / / // __ \ / __  / 
@@ -80,25 +81,11 @@ def Verify(verifyThis):
 |__/|__/ \____//_/   /_/|_|/_//_/ /_/ \__, /   \___/ \____/ \____//_/|_|/_/ \___/  /_/   \____/ \__,_//_/ /_/ \__,_/   
                                      /____/                                                                            
             ''')
+            return
         elif (loggedIn != browser.current_url):
             print("URL BAD, Cookie didn't work\n================================")
     except Exception as e:
         print("Exception:", e)
-        browser.close()
-def dec64(encoded_string):
-    decoded_string = base64.b64decode(encoded_string)
-    return decoded_string.decode()
-def postNum(): 
-    onePath = '//*[@id="post-'
-    twoPath = '"]/div/pre/code'
-    pathPostNumbers = [109, 112, 115, 119, 121, 123]
-    finalPaths = []
-    count = 0
-    for i in range(6): 
-        finalPath = onePath + str(pathPostNumbers[count]) + twoPath
-        count += 1
-        finalPaths.append(finalPath)
-    return finalPaths
 def siteInit(baseurl, postXpath, urlCount, *countBypass):
     baseurl = dec64(baseurl)
     if (noscrape or foundWorking):
@@ -116,14 +103,29 @@ def siteInit(baseurl, postXpath, urlCount, *countBypass):
             sites.append(finalURL)
     if not (foundWorking):
         SiteScrape(sites, postXpath)
+def dec64(encoded_string):
+    decoded_string = base64.b64decode(encoded_string)
+    return decoded_string.decode()
+def postNum(): 
+    onePath = '//*[@id="post-'
+    twoPath = '"]/div/pre/code'
+    pathPostNumbers = [109, 112, 115, 119, 121, 123]
+    finalPaths = []
+    count = 0
+    for i in range(6): 
+        finalPath = onePath + str(pathPostNumbers[count]) + twoPath
+        count += 1
+        finalPaths.append(finalPath)
+    return finalPaths
 # /\/\/\ Classes & Def /\/\/\
 vcount = 0
 # siteInit("URL", "XPATH", COOKIESITECOUNT)
 siteInit("aHR0cHM6Ly9pbmZva2lrLmNvbS9ncmFtbWFybHktJWQ=", '/html/body/div[7]/div[2]/div/div[2]/div[1]/div/div[2]/pre/code', 4) # American (better) english is more common here.
 siteInit("aHR0cHM6Ly93d3cubGlua3N0cmlja3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVk", '/html/body/div[2]/section[1]/div/div[2]/div/div[4]/div/pre/code', 6)
 
-siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVkLXVwZGF0ZWQv", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 1, {'ovride':1})
-siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWUtJWQtdXBkYXRlZC8=", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 6)
+# Bad sites
+# siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVkLXVwZGF0ZWQv", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 1, {'ovride':1})
+# siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWUtJWQtdXBkYXRlZC8=", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 6)
 
 # Other random sites
 siteInit("aHR0cHM6Ly9ncGxzaHViLmNvbS9ncmFtbWFybHktY29va2llcy0lZA==", '/html/body/div[1]/div/div[1]/main/article/div/div/pre', 2)
@@ -136,7 +138,7 @@ else:
     print("May have hit an exception. Look at previous output or log. ")
 print("Cleaning up...")
 try:
-    browser.close()
+    browser.quit()
     print(" Browser closed.")
 except Exception as e:
     print(" Exception when running browser.close():", e)
