@@ -30,7 +30,7 @@ To download python requirements send ``pip install -r requirements.txt``
 
 ## dont pay
 
-I can assure you there are more worthwhile investments for your money than a glorified keylogger. Hopefully, another service will be able to replace this. Maybe something built on OpenAi’s GPT-3.5... Though, OpenAI’s privacy policy for their service ChatGPT isn’t much better.
+I can assure you there are more worthwhile investments for your money than a glorified keylogger. Hopefully, another service will be able to replace this. Maybe something built on OpenAi’s GPT-3.5... Though, OpenAI’s privacy policy for their ChatGPT service isn’t much better.
 <a href="https://www.grammarly.com/privacy-policy">
 
 ```
