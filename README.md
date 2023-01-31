@@ -38,7 +38,9 @@ Government agencies, regulators, and other authorized third parties. We may disc
 <div>
 <img src="https://files.catbox.moe/9h2th9.png" height=100 /><img src="https://files.catbox.moe/af1wbx.jpg" height=100 />
 </div>
+
 # License
+
 See [LICENSE](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/blob/main/LICENSE)
 ```
 This repository is under the GNU Affero General Public License v3.0 license. 
