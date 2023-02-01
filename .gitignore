@@ -8,9 +8,8 @@ hidden/
 temp*
 cookie[0-9].txt
 *.log
-
-# VPN
-vpn*
-
-private.txt
 variables.txt
+
+# Other
+private.txt
+act.exe
