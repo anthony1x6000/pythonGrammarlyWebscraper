@@ -86,7 +86,7 @@ jobs:
       run: |
         ls
         cd $GITHUB_WORKSPACE
-        zip -r compiled.zip compiled/
+        zip -r compiled-Win64.zip compiled/
 
     - name: Upload compiled artifact
       uses: actions/upload-artifact@v2
@@ -99,7 +99,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files: compiled.zip
+        files: compiled-Win64.zip
+        body: " \n\nDownload compiled-Win64.zip for a quick setup. Just unzip and run main.py."
+        append_body: true
         draft: false
         prerelease: false
       if: github.event_name == 'release'
