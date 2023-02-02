@@ -63,7 +63,7 @@ jobs:
     - name: wget
       uses: wei/wget@v1
       with:
-        url: | 
+        args: | 
           $webdriverDL
           $x64DL
 
