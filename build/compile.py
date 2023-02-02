@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests, sys, re
 
-recentX64Xpath = "/html/body/div[1]/div[5]/div/main/turbo-frame/div/div[3]/section[1]/div/div[2]/div/div[2]/div[1]/details/div/div/ul/li[3]/div[1]/a"
 site = "https://github.com/ungoogled-software/ungoogled-chromium-windows/releases"
 site = requests.get(site).content
 soup = BeautifulSoup(site, 'html.parser')
