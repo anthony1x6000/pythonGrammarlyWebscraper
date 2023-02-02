@@ -60,25 +60,20 @@ jobs:
         cp main.py requirements.txt compiled
         cp -r drivers compiled
 
-    # - name: wget
-    #   uses: wei/wget@v1
-    #   with:
-    #     args: | 
-    #       $webdriverDL
-    #       $x64DL
     - name: Download URLs
       run: |
         echo "webdriverDL: $webdriverDL"
         echo "x64DL: $x64DL"
-        wget --progress=bar $webdriverDL
-        wget --progress=bar $x64DL
+        wget --progress=bar -O webdriver.zip $webdriverDL
+        wget --progress=bar -O browser.zip $x64DL
 
     - name: Extract webdriver
       run: |
-        unzip $chromium -d compiled/drivers
+        unzip webdriver.zip -d compiled/drivers
+        
     - name: Extract Browser
       run: |
-        unzip $webdriverDL -d compiled/drivers
+        unzip browser.zip -d compiled/drivers
         mv compiled/drivers/ungoogled-chromium_$chromeVersion_windows compiled/drivers/browser
 
     - name: Zip compiled directory
