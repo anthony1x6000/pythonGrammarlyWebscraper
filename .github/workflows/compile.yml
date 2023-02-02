@@ -63,7 +63,7 @@ jobs:
     - name: wget
       uses: wei/wget@v1
       with:
-        args: -O $webdriverDL
+        args: $webdriverDL
 
     # - name: Download URLs
     #   run: |
