@@ -32,16 +32,19 @@ jobs:
         pip install -r build/requirements.txt
         python build/compile.py
 
-    - name: Set environment variables from variables.txt
+    - name: Set environment variables from file
       run: |
-        # Read each line in variables.txt
-        while read line; do
-          # Split line into name and value
-          name="$(echo "$line" | cut -d '=' -f 1)"
-          value="$(echo "$line" | cut -d '=' -f 2)"
-          # Set environment variable
-          echo "::set-env name=$name::$value"
-        done < variables.txt
+        # Read the contents of the file into an array of lines
+        LINES=($(cat variables.txt))
+        # Loop over each line in the file
+        for LINE in "${LINES[@]}"; do
+          # Split each line into a name and a value
+          NAME=$(echo "$LINE" | cut -d'=' -f1)
+          VALUE=$(echo "$LINE" | cut -d'=' -f2)
+          # Set the environment variable with the name and value
+          echo "Setting environment variable '$NAME' to '$VALUE'"
+          echo "::set-env name=$NAME::$VALUE"
+        done
       # webdriverDL: ${{ env.webdriverDL }}
       # x64DL: ${{ env.x64DL }}
       # chromium: ${{ env.chromium }}
