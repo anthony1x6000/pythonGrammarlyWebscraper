@@ -60,12 +60,17 @@ jobs:
         cp main.py requirements.txt compiled
         cp -r drivers compiled
 
-    - name: Download URLs
-      run: |
-        echo "webdriverDL: $webdriverDL"
-        echo "x64DL: $x64DL"
-        wget wget --progress=bar $webdriverDL
-        wget wget --progress=bar $x64DL
+    - name: wget
+      uses: wei/wget@v1
+      with:
+        args: -O $webdriverDL
+
+    # - name: Download URLs
+    #   run: |
+    #     echo "webdriverDL: $webdriverDL"
+    #     echo "x64DL: $x64DL"
+    #     wget wget --progress=bar $webdriverDL
+    #     wget wget --progress=bar $x64DL
 
     - name: Extract webdriver
       run: |
