@@ -59,13 +59,14 @@ jobs:
         mkdir compiled
         cp main.py requirements.txt compiled
         cp -r drivers compiled
+        ls compiled
 
     - name: Download URLs
       run: |
         echo "webdriverDL: $webdriverDL"
         echo "x64DL: $x64DL"
-        wget --progress=bar -O webdriver.zip $webdriverDL
-        wget --progress=bar -O browser.zip $x64DL
+        wget -O webdriver.zip $webdriverDL
+        wget -O browser.zip $x64DL
 
     - name: Extract webdriver
       run: |
@@ -78,11 +79,12 @@ jobs:
 
     - name: Zip compiled directory
       run: |
+        ls
         cd $GITHUB_WORKSPACE
-        zip -r compiled.zip compiled
+        zip -r compiled.zip compiled/
 
     - name: Upload compiled artifact
       uses: actions/upload-artifact@v2
       with:
-        name: compiled
-        path: compiled.zip
+        name: compiled-Win64
+        path: compiled/
