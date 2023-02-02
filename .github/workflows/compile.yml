@@ -91,6 +91,7 @@ jobs:
         cd $GITHUB_WORKSPACE
         mv compiled webscraperGrammarly
         zip -r compiled-Win64.zip webscraperGrammarly/
+      if: github.event_name == 'release'
 
     - name: Upload compiled artifact
       uses: actions/upload-artifact@v2
