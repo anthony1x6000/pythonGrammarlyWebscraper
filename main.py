@@ -1,4 +1,5 @@
 import requests, shutil, os, pyperclip, json, random, string, logging, sys, datetime, threading, base64
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from contextlib import suppress
 from time import sleep
@@ -35,6 +36,22 @@ if (Debug):
 print("Starting browser...")
 browser = webdriver.Chrome(executable_path=driver_path, options=option)
 # \/\/\/ Classes & Def \/\/\/
+def SiteScrapeNoJS(siteList, postXpath):
+    try: 
+        domain = urlparse(siteList[0]).netloc
+        print("Using site:", domain)
+        for site in siteList:
+            if (foundWorking): return
+            site = requests.get(site).content
+            soup = BeautifulSoup(site, 'html.parser')
+            cookie = soup.find('code', attrs={'class':f'{postXpath}'}).text
+            # print(" URL: ", site)
+            print("Got text")
+            Verify(cookie)
+            tCount += 1
+        print("Scraped through %d page(s)" % tCount)
+    except Exception as e:
+        print("Exception in SiteScrape:", e)
 def SiteScrape(siteList, xpath):
     global tCount
     global xPathTxt
@@ -86,10 +103,11 @@ def Verify(verifyThis):
             print("URL BAD, Cookie didn't work\n================================")
     except Exception as e:
         print("Exception:", e)
-def siteInit(baseurl, postXpath, urlCount, *countBypass):
+def siteInit(baseurl, postXpath, urlCount, nojs=False, *countBypass):
     baseurl = dec64(baseurl)
     if (noscrape or foundWorking):
         return
+
     sites = []
     if (countBypass):
         count = countBypass[0]['ovride']
@@ -101,7 +119,8 @@ def siteInit(baseurl, postXpath, urlCount, *countBypass):
             finalURL = (baseurl % (count))
             count += 1
             sites.append(finalURL)
-    if not (foundWorking):
+        if nojs:
+            SiteScrapeNoJS(sites, postXpath)
         SiteScrape(sites, postXpath)
 def dec64(encoded_string):
     decoded_string = base64.b64decode(encoded_string)
@@ -120,12 +139,13 @@ def postNum():
 # /\/\/\ Classes & Def /\/\/\
 vcount = 0
 # siteInit("URL", "XPATH", COOKIESITECOUNT)
-siteInit("aHR0cHM6Ly9pbmZva2lrLmNvbS9ncmFtbWFybHktJWQ=", '/html/body/div[7]/div[2]/div/div[2]/div[1]/div/div[2]/pre/code', 4) # American (better) english is more common here.
-siteInit("aHR0cHM6Ly93d3cubGlua3N0cmlja3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVk", '/html/body/div[2]/section[1]/div/div[2]/div/div[4]/div/pre/code', 6)
+siteInit("aHR0cHM6Ly9pbmZva2lrLmNvbS9ncmFtbWFybHktJWQ=", "language-markup", 4, True) # American (better) english is more common here.
+siteInit("aHR0cHM6Ly93d3cubGlua3N0cmlja3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVk", 'language-json', 6, True)
 
-# Bad sites
-# siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVkLXVwZGF0ZWQv", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 1, {'ovride':1})
-# siteInit("aHR0cHM6Ly9mcmVlZmlyZXJldmlld3MuY29tL2dyYW1tYXJseS1jb29raWUtJWQtdXBkYXRlZC8=", '/html/body/div[3]/div/div/div[1]/main/article/div/pre/div/div[1]/code', 6)
+
+# Old JS site duplicates
+# siteInit("aHR0cHM6Ly9pbmZva2lrLmNvbS9ncmFtbWFybHktJWQ=", '/html/body/div[7]/div[2]/div/div[2]/div[1]/div/div[2]/pre/code', 4, True) # American (better) english is more common here.
+# siteInit("aHR0cHM6Ly93d3cubGlua3N0cmlja3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVk", '/html/body/div[2]/section[1]/div/div[2]/div/div[4]/div/pre/code', 6)
 
 # Other random sites
 siteInit("aHR0cHM6Ly9ncGxzaHViLmNvbS9ncmFtbWFybHktY29va2llcy0lZA==", '/html/body/div[1]/div/div[1]/main/article/div/div/pre', 2)
