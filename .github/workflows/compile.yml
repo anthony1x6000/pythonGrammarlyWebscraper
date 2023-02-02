@@ -107,3 +107,4 @@ jobs:
         files: compiled.zip
         draft: false
         prerelease: false
+      if: github.event_name = 'release'
