@@ -27,21 +27,26 @@ jobs:
       with:
         python-version: 3.9
 
-    - name: Run Python
+    - name: Run compile.py
       run: |
         pip install -r build/requirements.txt
         python build/compile.py
 
     - name: Set environment variables from variables.txt
       run: |
-        set +x
-        export $(cat variables.txt | xargs)
-      env:
-        webdriverDL: $webdriverDL
-        x64DL: $x64DL
-        chromium: $chromium
-        driver: $driver
-        chromeVersion: $chromeVersion
+        # Read each line in variables.txt
+        while read line; do
+          # Split line into name and value
+          name="$(echo "$line" | cut -d '=' -f 1)"
+          value="$(echo "$line" | cut -d '=' -f 2)"
+          # Set environment variable
+          echo "::set-env name=$name::$value"
+        done < variables.txt
+      # webdriverDL: ${{ env.webdriverDL }}
+      # x64DL: ${{ env.x64DL }}
+      # chromium: ${{ env.chromium }}
+      # driver: ${{ env.driver }}
+      # chromeVersion: ${{ env.chromeVersion }}
 
     - name: Move necessary files to compiled
       run: |
