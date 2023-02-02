@@ -89,13 +89,14 @@ jobs:
       run: |
         ls
         cd $GITHUB_WORKSPACE
-        zip -r compiled-Win64.zip compiled/
+        mv compiled webscraperGrammarly
+        zip -r compiled-Win64.zip webscraperGrammarly/
 
     - name: Upload compiled artifact
       uses: actions/upload-artifact@v2
       with:
         name: compiled-Win64
-        path: compiled/
+        path: webscraperGrammarly/
         
     - name: Release Asset
       uses: softprops/action-gh-release@v1
