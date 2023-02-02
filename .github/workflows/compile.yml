@@ -1,5 +1,9 @@
 name: Compile
-on: push
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -11,6 +15,7 @@ jobs:
         echo "Current directory: $(pwd)"
         echo "DIR Contents:"
         ls
+        cat build/requirements.txt
 
     - name: Set up Python
       uses: actions/setup-python@v2
