@@ -1,6 +1,6 @@
 name: Compile
 
-on:
+on: [workflow_dispatch]
   push:
     paths:
       - '**.py'
