@@ -10,12 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: main
+
     - name: DIRECTORY STUFF
       run: |
         echo "Current directory: $(pwd)"
         echo "DIR Contents:"
         ls
-        cat build/requirements.txt
+        cat /build/requirements.txt
 
     - name: Set up Python
       uses: actions/setup-python@v2
