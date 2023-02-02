@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron:  '0 0 */14 * *'
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -88,3 +92,18 @@ jobs:
       with:
         name: compiled-Win64
         path: compiled/
+
+    - name: Upload compressed compiled artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: compressed-compiledWin64
+        path: compiled.zip
+        
+    - name: Upload compiled.zip as a release asset
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: compiled.zip
+        draft: false
+        prerelease: false
