@@ -70,11 +70,11 @@ jobs:
     - name: Extract webdriver
       run: |
         unzip webdriver.zip -d compiled/drivers
-        
+
     - name: Extract Browser
       run: |
         unzip browser.zip -d compiled/drivers
-        mv compiled/drivers/ungoogled-chromium_$chromeVersion_windows compiled/drivers/browser
+        mv compiled/drivers/ungoogled-chromium_${chromeVersion}_windows compiled/drivers/browser
 
     - name: Zip compiled directory
       run: |
