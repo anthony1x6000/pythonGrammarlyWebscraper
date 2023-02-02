@@ -41,3 +41,4 @@ with open("variables.txt", "w") as file:
     file.write(f"x64DL={x64DL}\n")
     file.write(f"chromium=ungoogled-chromium_{mostRecent}_windows_x64.zip\n")
     file.write(f"driver=chromedriver_win32.zip\n")
+    file.write(f"chromeVersion={mostRecent}\n")
