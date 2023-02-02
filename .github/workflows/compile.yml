@@ -66,7 +66,6 @@ jobs:
         args: | 
           $webdriverDL
           $x64DL
-
     # - name: Download URLs
     #   run: |
     #     echo "webdriverDL: $webdriverDL"
@@ -76,7 +75,7 @@ jobs:
 
     - name: Extract webdriver
       run: |
-        unzip $x64DL -d compiled/drivers
+        unzip $chromium -d compiled/drivers
     - name: Extract Browser
       run: |
         unzip $webdriverDL -d compiled/drivers
