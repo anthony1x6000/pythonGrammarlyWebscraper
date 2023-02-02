@@ -92,14 +92,8 @@ jobs:
       with:
         name: compiled-Win64
         path: compiled/
-
-    - name: Upload compressed compiled artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: compressed-compiledWin64
-        path: compiled.zip
         
-    - name: Upload compiled.zip as a release asset
+    - name: Release Asset
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
