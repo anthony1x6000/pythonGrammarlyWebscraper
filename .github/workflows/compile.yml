@@ -33,6 +33,8 @@ jobs:
         python build/compile.py
 
     - name: Set environment variables from file
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       run: |
         # Read the contents of the file into an array of lines
         LINES=($(cat variables.txt))
