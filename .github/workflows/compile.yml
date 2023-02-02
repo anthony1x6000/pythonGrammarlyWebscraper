@@ -2,10 +2,11 @@ name: Compile
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - '**.py'
+      - 'drivers/**'
   schedule:
-    - cron:  '0 0 */14 * *'
+      - cron:  '0 0 */30 * *'
   release:
     types: [created]
 
@@ -94,7 +95,7 @@ jobs:
         path: compiled/
         
     - name: Release Asset
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
