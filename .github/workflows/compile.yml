@@ -1,0 +1,67 @@
+name: Compile
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: DIRECTORY STUFF
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "DIR Contents:"
+        ls
+
+    # - name: Set up Python
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: 3.10
+
+    - name: Run Python
+      run: |
+        pip install -r build/requirements.txt
+        python build/compile.py
+
+    - name: Set environment variables from variables.txt
+      run: |
+        set +x
+        export $(cat variables.txt | xargs)
+      env:
+        webdriverDL: $webdriverDL
+        x64DL: $x64DL
+        chromium: $chromium
+        driver: $driver
+        chromeVersion: $chromeVersion
+
+    - name: Move necessary files to compiled
+      run: |
+        cd $GITHUB_WORKSPACE
+        mkdir compiled
+        cp main.py requirements.txt compiled
+        cp -r drivers compiled
+
+    - name: Download URLs
+      run: |
+        echo "webdriverDL: $webdriverDL"
+        echo "x64DL: $x64DL"
+        wget wget --progress=bar $webdriverDL
+        wget wget --progress=bar $x64DL
+
+    - name: Extract webdriver
+      run: |
+        unzip $x64DL -d compiled/drivers
+    - name: Extract Browser
+      run: |
+        unzip $webdriverDL -d compiled/drivers
+        mv compiled/drivers/ungoogled-chromium_$chromeVersion_windows compiled/drivers/browser
+
+    - name: Zip compiled directory
+      run: |
+        cd $GITHUB_WORKSPACE
+        zip -r compiled.zip compiled
+
+    - name: Upload compiled artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: compiled
+        path: compiled.zip
