@@ -20,7 +20,6 @@ with suppress(Exception): # Load prefrences file
 # \/\/\/ Constants \/\/\/
 siteSet = "https://www.grammarly.com/"
 loggedIn = "https://app.grammarly.com/" # Logged in page, you can tell from the "app" subdomain.
-tCount = 0
 ranAlready = False
 foundWorking = False
 Debug = False
@@ -48,12 +47,9 @@ def SiteScrapeNoJS(siteList, postXpath):
             # print(" URL: ", site)
             print("Got text")
             Verify(cookie)
-            tCount += 1
-        print("Scraped through %d page(s)" % tCount)
     except Exception as e:
         print("Exception in SiteScrape:", e)
 def SiteScrape(siteList, xpath):
-    global tCount
     global xPathTxt
     print("Starting to scrape...")
     try: 
@@ -66,8 +62,6 @@ def SiteScrape(siteList, xpath):
             xPathTxt = browser.find_element_by_xpath(xpath) # Get cookie found in xpath provided
             print("Got text")
             Verify(xPathTxt.text)
-            tCount += 1
-        print("Scraped through %d page(s)" % tCount)
     except Exception as e:
         print("Exception in SiteScrape:", e)
 def Verify(verifyThis):
