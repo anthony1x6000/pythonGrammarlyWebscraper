@@ -90,6 +90,7 @@ jobs:
         mv compiled webscraperGrammarly
         cd webscraperGrammarly
         pyinstaller --noconfirm --onedir --console --distpath .\out --splash .\build\ico.png --icon .\build\ico.ico --name "webscraperGrammarly" --add-data ".\drivers\;drivers\" .\main.py
+        echo "Done pyinstaller"
         cd $GITHUB_WORKSPACE
         ls
         mv webscraperGrammarly/out/webscraperGrammarly/ exeWebscraperGrammarly
