@@ -159,5 +159,4 @@ except Exception as e:
     if ('invalid' in str(e)):
         print("You can probably ignore that exception.")
 print("Script Finished.")
-exit()
 # /\/\/\ Final Section /\/\/\
