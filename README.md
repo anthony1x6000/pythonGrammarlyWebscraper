@@ -16,10 +16,12 @@ Script is intended to demonstrate the capabilities of webscraping.
 
 # Setup
 
-Download and extract the zip in the most recent [release](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/releases), \
-or look at the [sucessful builds](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/actions/workflows/compile.yml?query=is%3Asuccess) and download the artifact - it'll be called compiled-Win64. [Download guide](https://files.catbox.moe/9eg2sh.webp).
+You need to have [python installed](https://www.python.org/downloads/). Probably python 3.10.
 
-## Alternatively, 
+Download and extract compiled-Win64.zip in the most recent [release](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/releases).
+Or download from the [sucessful builds](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/actions/workflows/compile.yml?query=is%3Asuccess) and download the artifact - it'll be called compiled-Win64. [Download guide](https://files.catbox.moe/9eg2sh.webp).
+
+## Alternatively,
 
 1. Install a chromium-based browser. For example, [ungoogled-chromium for windows](https://github.com/ungoogled-software/ungoogled-chromium-windows/releases). Download the windows_x64 package and put the contents of the zip into 'drivers/browser'
 2. Update chrome_path within main.py to match your chromium-based browser bianary executable. You can probably skip this step if you followed the second half of the previous one.
@@ -30,8 +32,6 @@ or look at the [sucessful builds](https://github.com/anthony1x6000/pythonGrammar
 4. Place chromedriver.exe within the drivers path, or anywhere, just make sure to update the driver_path within main.py
 5. After running the script, import the cookies into grammarly.com with an extension like [cookie-editor](https://chrome.google.com/webstore/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm).
    1. I recommend downloading the Microsoft Word Grammarly addon and then logging into the account there so you don't have to deal with people logging out.
-
-
 
 ## Requirements.txt
 
