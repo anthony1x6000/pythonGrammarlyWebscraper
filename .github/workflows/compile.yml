@@ -90,14 +90,14 @@ jobs:
         mv compiled webscraperGrammarly
         cd webscraperGrammarly
         pyinstaller --noconfirm --onedir --console --distpath .\out --splash .\build\ico.png --icon .\build\ico.ico --name "webscraperGrammarly" --add-data ".\drivers\;drivers\" .\main.py
-      if: github.event_name == 'release'
+        cd $GITHUB_WORKSPACE
+        ls
+        mv webscraperGrammarly/out/webscraperGrammarly/ exeWebscraperGrammarly
 
     - name: Zip exe
       run: |
-        ls
-        cd $GITHUB_WORKSPACE
-        mv webscraperGrammarly/out/webscraperGrammarly/ exeWebscraperGrammarly
         zip -r compiledEXE-Win64.zip exeWebscraperGrammarly/
+      if: github.event_name == 'release'
 
     - name: Zip compiled directory
       run: |
