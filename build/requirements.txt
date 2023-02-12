@@ -1,3 +1,4 @@
 beautifulsoup4==4.11.2
 requests==2.26.0
 PyInstaller>=5.8.0
+Pillow==9.4.0
