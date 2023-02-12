@@ -85,17 +85,14 @@ jobs:
 
     - name: Build exe with pyinstaller
       run: |
-        echo "Current dir and contents"
-        pwd
-        ls
         cd $GITHUB_WORKSPACE
-        pwd
         mv compiled webscraperGrammarly
         cd webscraperGrammarly
-        echo "Current DIR"
+        echo "Current DIR and contents"
         pwd
+        ls
         echo "Running pyinstaller"
-        pyinstaller --noconfirm --onedir --console --distpath out --splash build\ico.png --icon build\ico.ico --name webscraperGrammarly --add-data 'drivers;drivers/' main.py
+        pyinstaller --noconfirm --onedir --console --distpath out --splash build\ico.png --icon build\ico.ico --name webscraperGrammarly --add-data '/drivers;drivers/' main.py
         echo "Done pyinstaller"
         cd $GITHUB_WORKSPACE
         ls
