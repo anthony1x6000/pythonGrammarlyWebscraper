@@ -91,6 +91,7 @@ jobs:
         cd webscraperGrammarly
         pyinstaller --noconfirm --onedir --console --distpath .\out --splash .\build\ico.png --icon .\build\ico.ico --name "webscraperGrammarly" --add-data ".\drivers\;drivers\" .\main.py
       if: github.event_name == 'release'
+
     - name: Zip exe
       run: |
         ls
@@ -106,11 +107,17 @@ jobs:
         zip -r compiled-Win64.zip webscraperGrammarly/
       if: github.event_name == 'release'
 
-    - name: Upload compiled artifact
+    - name: Upload python artifact
       uses: actions/upload-artifact@v2
       with:
         name: compiled-Win64
         path: webscraperGrammarly/
+      
+    - name: Upload exe artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: compiledEXE-Win64
+        path: exeWebscraperGrammarly/
         
     - name: Release Asset
       uses: softprops/action-gh-release@v1
