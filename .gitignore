@@ -9,7 +9,7 @@ temp*
 cookie[0-9].txt
 *.log
 variables.txt
-output/
+out/
 build/webscraperGrammarly
 
 # Other
