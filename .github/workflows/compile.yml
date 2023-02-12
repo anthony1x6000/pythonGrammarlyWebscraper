@@ -92,7 +92,7 @@ jobs:
         pwd
         ls
         echo "Running pyinstaller"
-        pyinstaller --noconfirm --onedir --console --distpath out --splash build/ico.png --icon build/ICO.ico --name webscraperGrammarly --add-data "drivers:drivers/" main.py
+        pyinstaller --noconfirm --onedir --console --distpath out --splash build/ico.ico --icon build/ICO.ico --name webscraperGrammarly --add-data "drivers:drivers/" main.py
         echo "Done pyinstaller"
         cd $GITHUB_WORKSPACE
         ls
