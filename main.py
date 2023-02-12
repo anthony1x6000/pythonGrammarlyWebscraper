@@ -26,7 +26,7 @@ with suppress(Exception): # Load prefrences file
 # /\/\ Webdriver & browser stuff /\/\
 # \/\/\/ Constants \/\/\/
 siteSet = "https://www.grammarly.com/"
-loggedIn = "https://app.grammarly.com/" # Logged in page, you can tell from the "app" subdomain.
+loggedIn = "https://app.grammarly.com/" # Logged in page
 ranAlready = False
 foundWorking = False
 Debug = False
