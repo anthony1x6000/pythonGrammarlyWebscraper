@@ -6,11 +6,18 @@ from time import sleep
 from urllib.parse import urlparse
 #############################################################
 # \/\/ Webdriver & browser stuff \/\/
+try:
+    import pyi_splash
+    pyi_splash.close()
+except:
+    pass
 driver_path = 'drivers/chromedriver.exe'
 chrome_path = 'drivers/browser/chrome.exe'
 option = webdriver.ChromeOptions()
 option.binary_location = chrome_path
-option.add_argument("--disable-gpu, --window-size=640,480")
+# option.add_argument("--disable-gpu, --window-size=640,480")
+option.add_argument("--headless")
+option.add_argument("--disable-gpu")
 option.add_experimental_option("excludeSwitches", ["enable-logging"])
 with suppress(Exception): # Load prefrences file
     with open('drivers/Preferences') as jsonFile:

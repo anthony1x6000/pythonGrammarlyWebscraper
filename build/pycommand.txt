@@ -1,1 +1,1 @@
-pyinstaller --noconfirm --onedir --console --icon "E:/Github/pythonGrammarlyWebscraper/build/ico.ico" --add-data "E:/Github/pythonGrammarlyWebscraper/drivers;drivers/"  "E:/Github/pythonGrammarlyWebscraper/main.py"
+pyinstaller --noconfirm --onedir --console --distpath .\out --splash .\build\ico.ico --icon .\build\ico.ico --name "webscraperGrammarly" --add-data ".\drivers\;drivers\" .\main.py

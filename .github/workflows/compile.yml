@@ -67,6 +67,7 @@ jobs:
         mkdir compiled
         cp main.py requirements.txt compiled
         cp -r drivers compiled
+        cp -r build compiled
         ls compiled
 
     - name: Download URLs
@@ -76,14 +77,26 @@ jobs:
         wget -O webdriver.zip $webdriverDL
         wget -O browser.zip $x64DL
 
-    - name: Extract webdriver
+    - name: Extract webdriver and browser
       run: |
         unzip webdriver.zip -d compiled/drivers
-
-    - name: Extract Browser
-      run: |
         unzip browser.zip -d compiled/drivers
         mv compiled/drivers/ungoogled-chromium_${chromeVersion}_windows compiled/drivers/browser
+
+    - name: Build exe with pyinstaller
+      run: |
+        ls
+        cd $GITHUB_WORKSPACE
+        mv compiled webscraperGrammarly
+        cd webscraperGrammarly
+        pyinstaller --noconfirm --onedir --console --distpath .\out --splash .\build\ico.png --icon .\build\ico.ico --name "webscraperGrammarly" --add-data ".\drivers\;drivers\" .\main.py
+      if: github.event_name == 'release'
+    - name: Zip exe
+      run: |
+        ls
+        cd $GITHUB_WORKSPACE
+        mv webscraperGrammarly/out/webscraperGrammarly/ exeWebscraperGrammarly
+        zip -r compiledEXE-Win64.zip exeWebscraperGrammarly/
 
     - name: Zip compiled directory
       run: |
