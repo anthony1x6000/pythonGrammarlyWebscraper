@@ -83,32 +83,25 @@ jobs:
         unzip browser.zip -d compiled/drivers
         mv compiled/drivers/ungoogled-chromium_${chromeVersion}_windows compiled/drivers/browser
 
-    - name: Install Wine
-      run: |
-        sudo apt-get install wine-stable
-        wget https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe
-        wine msiexec /i python-3.10.10-amd64.exe /qb
-        wine python.exe Scripts/pip.exe install installer
-      
-    - name: Build exe with pyinstaller
-      run: |
-        cd $GITHUB_WORKSPACE
-        mv compiled webscraperGrammarly
-        cd webscraperGrammarly
-        echo "Current DIR and contents"
-        pwd
-        ls
-        echo "Running pyinstaller"
-        pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ico.png" --icon "build/ico.ico" --name "webscraperGrammarly" --add-data "drivers:drivers/" "main.py"
-        echo "Done pyinstaller"
-        cd $GITHUB_WORKSPACE
-        ls
-        mv webscraperGrammarly/out/webscraperGrammarly/ exeWebscraperGrammarly
+    # - name: Build exe with pyinstaller
+    #   run: |
+    #     cd $GITHUB_WORKSPACE
+    #     mv compiled webscraperGrammarly
+    #     cd webscraperGrammarly
+    #     echo "Current DIR and contents"
+    #     pwd
+    #     ls
+    #     echo "Running pyinstaller"
+    #     pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ico.png" --icon "build/ico.ico" --name "webscraperGrammarly" --add-data "drivers:drivers/" "main.py"
+    #     echo "Done pyinstaller"
+    #     cd $GITHUB_WORKSPACE
+    #     ls
+    #     mv webscraperGrammarly/out/webscraperGrammarly/ exeWebscraperGrammarly
 
-    - name: Zip exe
-      run: |
-        zip -r compiledEXE-Win64.zip exeWebscraperGrammarly/
-      if: github.event_name == 'release'
+    # - name: Zip exe
+    #   run: |
+    #     zip -r compiledEXE-Win64.zip exeWebscraperGrammarly/
+    #   if: github.event_name == 'release'
 
     - name: Zip compiled directory
       run: |
@@ -124,11 +117,11 @@ jobs:
         name: compiled-Win64
         path: webscraperGrammarly/
       
-    - name: Upload exe artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: compiledEXE-Win64
-        path: exeWebscraperGrammarly/
+    # - name: Upload exe artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: compiledEXE-Win64
+    #     path: exeWebscraperGrammarly/
         
     - name: Release Asset
       uses: softprops/action-gh-release@v1
