@@ -46,9 +46,11 @@ jobs:
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       run: |
-        $envVars = Get-Content variables.txt | ForEach-Object {
-          [Environment]::SetEnvironmentVariable($_ -split '=', ($_ -split '=', 2)[1], 'User')
+        Get-Content variables.txt | ForEach-Object {
+          $var = $_ -split '='
+          [Environment]::SetEnvironmentVariable($var[0], $var[1], 'User')
         }
+        echo $env:webdriverDL
 
       # webdriverDL: $env:webdriverDL
       # x64DL: ${{ env.x64DL }}
