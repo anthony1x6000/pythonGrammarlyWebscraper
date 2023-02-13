@@ -156,8 +156,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        files: compiled-Win64.zip
-        body: " \n\nDownload compiled-Win64.zip for a quick setup. Just unzip and run main.py."
+        files: |
+          compiled-Win64.zip
+          compiledEXE-Win64.zip
+        body: " \n\nDownload ``compiledEXE-Win64.zip`` for zero effort. Just unzip and run ``webscraperGrammarly.exe``"
         append_body: true
         draft: false
         prerelease: false
