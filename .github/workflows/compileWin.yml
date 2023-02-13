@@ -59,7 +59,9 @@ jobs:
 
     - name: Move necessary files to compiled
       run: |
+        dir
         cd ${{ env.GITHUB_WORKSPACE}}
+        dir
         New-Item -ItemType Directory -Path compiled
         Copy-Item -Path main.py, requirements.txt -Destination compiled
         Copy-Item -Path drivers -Recurse -Destination compiled
