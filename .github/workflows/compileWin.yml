@@ -46,9 +46,9 @@ jobs:
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       run: |
-        for /f "delims=" %%a in (variables.txt) do (
-          set "%%a"
-        )
+        $envVars = Get-Content variables.txt | ForEach-Object {
+          [Environment]::SetEnvironmentVariable($_ -split '=', ($_ -split '=', 2)[1], 'User')
+        }
 
       # webdriverDL: ${{ env.webdriverDL }}
       # x64DL: ${{ env.x64DL }}
