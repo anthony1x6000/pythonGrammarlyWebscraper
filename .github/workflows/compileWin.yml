@@ -23,12 +23,13 @@ jobs:
       with:
         ref: main
 
-    - name: DIRECTORY STUFF
-      run: |
-        echo "Current directory: $(Get-Location)"
-        echo "DIR Contents:"
-        Get-ChildItem
         Get-Content -Path build/requirements.txt
+    # - name: DIRECTORY STUFF
+    #   run: |
+    #     echo "Current directory: $(Get-Location)"
+    #     echo "DIR Contents:"
+    #     Get-ChildItem
+    #     Get-Content -Path build/requirements.txt
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -42,6 +43,8 @@ jobs:
         python build/compile.py
 
     - name: Read variables from file
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       run: |
         Get-Content variables.txt | ForEach-Object {
           $var = $_ -split '='
