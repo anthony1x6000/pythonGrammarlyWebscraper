@@ -46,16 +46,10 @@ jobs:
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       run: |
-        # Read the contents of the file into an array of lines
-        $lines = Get-Content -Path variables.txt
-        # Loop over each line in the file
-        foreach ($line in $lines) {
-          # Split each line into a name and a value
-          $name, $value = $line -split '='
-          # Set the environment variable with the name and value
-          Write-Output "Setting environment variable '$name' to '$value'"
-          Write-Output "##vso[task.setvariable variable=$name]$value"
-        }
+        for /f "delims=" %%a in (variables.txt) do (
+          set "%%a"
+        )
+
       # webdriverDL: ${{ env.webdriverDL }}
       # x64DL: ${{ env.x64DL }}
       # chromium: ${{ env.chromium }}
