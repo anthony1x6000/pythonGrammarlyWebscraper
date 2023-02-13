@@ -82,7 +82,14 @@ jobs:
         unzip webdriver.zip -d compiled/drivers
         unzip browser.zip -d compiled/drivers
         mv compiled/drivers/ungoogled-chromium_${chromeVersion}_windows compiled/drivers/browser
-        
+
+    - name: Install Wine
+      run: |
+        sudo apt-get install wine-stable
+        wget https://www.python.org/ftp/python/3.10.10/python-3.10.10-amd64.exe
+        wine msiexec /i python-3.10.10-amd64.exe /qb
+        wine python.exe Scripts/pip.exe install installer
+      
     - name: Build exe with pyinstaller
       run: |
         cd $GITHUB_WORKSPACE
