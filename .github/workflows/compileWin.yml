@@ -41,16 +41,32 @@ jobs:
         pip install -r build/requirements.txt
         python build/compile.py
 
-
-    - name: Set environment variables from file
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    - name: Read variables from file
       run: |
         Get-Content variables.txt | ForEach-Object {
           $var = $_ -split '='
+          echo "Setting environment variable $($var[0]) with value $($var[1])"
           [Environment]::SetEnvironmentVariable($var[0], $var[1], 'User')
         }
-        echo $env:webdriverDL
+
+    - name: Test environment variables
+      run: |
+        Write-Output "webdriverDL is $env:webdriverDL"
+        Write-Output "x64DL is $env:x64DL"
+        Write-Output "chromium is $env:chromium"
+        Write-Output "driver is $env:driver"
+        Write-Output "chromeVersion is $env:chromeVersion"
+
+    # - name: Set environment variables from file
+    #   env:
+    #     ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    #   run: |
+    #     Get-Content variables.txt | ForEach-Object {
+    #       $var = $_ -split '='
+    #       [Environment]::SetEnvironmentVariable($var[0], $var[1], 'User')
+    #     }
+    #     Get-Content variables.txt
+    #     echo $env:webdriverDL
 
       # webdriverDL: $env:webdriverDL
       # x64DL: ${{ env.x64DL }}
