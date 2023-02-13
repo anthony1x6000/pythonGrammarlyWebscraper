@@ -82,7 +82,7 @@ jobs:
         unzip webdriver.zip -d compiled/drivers
         unzip browser.zip -d compiled/drivers
         mv compiled/drivers/ungoogled-chromium_${chromeVersion}_windows compiled/drivers/browser
-
+        
     - name: Build exe with pyinstaller
       run: |
         cd $GITHUB_WORKSPACE

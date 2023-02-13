@@ -1,0 +1,142 @@
+name: CompileWin
+
+on:
+  push:
+    paths:
+      - '**.py'
+      - 'drivers/**'
+  schedule:
+      - cron:  '0 0 */30 * *'
+  release:
+    types: [created]
+  workflow_dispatch:
+    branches:
+    - main 
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: main
+
+    - name: DIRECTORY STUFF
+      run: |
+        echo "Current directory: $(Get-Location)"
+        echo "DIR Contents:"
+        Get-ChildItem
+        Get-Content -Path build/requirements.txt
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+
+    - name: Run compile.py
+      run: |
+        pip install -r build/requirements.txt
+        python build/compile.py
+
+
+    - name: Set environment variables from file
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+      run: |
+        # Read the contents of the file into an array of lines
+        $lines = Get-Content -Path variables.txt
+        # Loop over each line in the file
+        foreach ($line in $lines) {
+          # Split each line into a name and a value
+          $name, $value = $line -split '='
+          # Set the environment variable with the name and value
+          Write-Output "Setting environment variable '$name' to '$value'"
+          Write-Output "##vso[task.setvariable variable=$name]$value"
+        }
+      # webdriverDL: ${{ env.webdriverDL }}
+      # x64DL: ${{ env.x64DL }}
+      # chromium: ${{ env.chromium }}
+      # driver: ${{ env.driver }}
+      # chromeVersion: ${{ env.chromeVersion }}
+
+
+    - name: Move necessary files to compiled
+      run: |
+        Set-Location -Path $env:GITHUB_WORKSPACE
+        New-Item -ItemType Directory -Path compiled
+        Copy-Item -Path main.py, requirements.txt -Destination compiled
+        Copy-Item -Path drivers -Recurse -Destination compiled
+        Copy-Item -Path build -Recurse -Destination compiled
+        Get-ChildItem -Path compiled
+
+
+    - name: Download URLs
+      run: |
+        echo "webdriverDL: $env:webdriverDL"
+        echo "x64DL: $env:x64DL"
+        Invoke-WebRequest -Uri $env:webdriverDL -OutFile webdriver.zip
+        Invoke-WebRequest -Uri $env:x64DL -OutFile browser.zip
+
+
+    - name: Extract webdriver and browser
+      run: |
+        Expand-Archive -Path webdriver.zip -DestinationPath compiled/drivers
+        Expand-Archive -Path browser.zip -DestinationPath compiled/drivers
+        Move-Item -Path "compiled/drivers/ungoogled-chromium_${env:chromeVersion}_windows" -Destination "compiled/drivers/browser"
+
+
+    - name: Build exe with pyinstaller
+      run: |
+        Set-Location -Path $env:GITHUB_WORKSPACE
+        Move-Item -Path compiled -Destination webscraperGrammarly
+        Set-Location -Path webscraperGrammarly
+        Write-Host "Current DIR and contents"
+        Get-Location
+        Get-ChildItem
+        Write-Host "Running pyinstaller"
+        pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ICO.png" --icon "build/ICO.ico" --name "webscraperGrammarly" --add-data "drivers:drivers/" "main.py"
+        Write-Host "Done pyinstaller"
+        Set-Location -Path $env:GITHUB_WORKSPACE
+        Get-ChildItem
+        Move-Item -Path webscraperGrammarly/out/webscraperGrammarly/ -Destination exeWebscraperGrammarly
+
+    - name: Zip exe
+      run: |
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        [System.IO.Compression.ZipFile]::CreateFromDirectory("exeWebscraperGrammarly", "compiledEXE-Win64.zip")
+      if: env.GITHUB_EVENT_NAME -eq 'release'
+
+    - name: Zip compiled directory
+      run: |
+        Get-ChildItem
+        Set-Location -Path $env:GITHUB_WORKSPACE
+        Move-Item -Path compiled -Destination webscraperGrammarly
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        [System.IO.Compression.ZipFile]::CreateFromDirectory("webscraperGrammarly", "compiled-Win64.zip")
+      if: env.GITHUB_EVENT_NAME -eq 'release'
+    - name: Upload python artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: compiled-Win64
+        path: webscraperGrammarly/
+
+    - name: Upload exe artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: compiledEXE-Win64
+        path: exeWebscraperGrammarly/
+
+    - name: Release Asset
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: compiled-Win64.zip
+        body: " \n\nDownload compiled-Win64.zip for a quick setup. Just unzip and run main.py."
+        append_body: true
+        draft: false
+        prerelease: false
+      if: github.event_name == 'release'
