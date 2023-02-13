@@ -23,18 +23,10 @@ jobs:
       with:
         ref: main
 
-    # - name: DIRECTORY STUFF
-    #   run: |
-    #     echo "Current directory: $(Get-Location)"
-    #     echo "DIR Contents:"
-    #     Get-ChildItem
-    #     Get-Content -Path build/requirements.txt
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.9
-
 
     - name: Run compile.py
       run: |
@@ -64,24 +56,6 @@ jobs:
         Write-Output "driver is $env:driver"
         Write-Output "chromeVersion is $env:chromeVersion"
 
-    # - name: Set environment variables from file
-    #   env:
-    #     ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-    #   run: |
-    #     Get-Content variables.txt | ForEach-Object {
-    #       $var = $_ -split '='
-    #       [Environment]::SetEnvironmentVariable($var[0], $var[1], 'User')
-    #     }
-    #     Get-Content variables.txt
-    #     echo $env:webdriverDL
-
-      # webdriverDL: $env:webdriverDL
-      # x64DL: ${{ env.x64DL }}
-      # chromium: ${{ env.chromium }}
-      # driver: ${{ env.driver }}
-      # chromeVersion: ${{ env.chromeVersion }}
-
-
     - name: Move necessary files to compiled
       run: |
         dir
@@ -93,7 +67,6 @@ jobs:
         Copy-Item -Path build -Recurse -Destination compiled
         Get-ChildItem -Path compiled
 
-
     - name: Download URLs
       run: |
         echo "webdriverDL: $env:webdriverDL"
@@ -101,13 +74,11 @@ jobs:
         Invoke-WebRequest -Uri $env:webdriverDL -OutFile webdriver.zip
         Invoke-WebRequest -Uri $env:x64DL -OutFile browser.zip
 
-
     - name: Extract webdriver and browser
       run: |
         Expand-Archive -Path webdriver.zip -DestinationPath compiled/drivers
         Expand-Archive -Path browser.zip -DestinationPath compiled/drivers
         Move-Item -Path "compiled/drivers/ungoogled-chromium_${env:chromeVersion}_windows" -Destination "compiled/drivers/browser"
-
 
     - name: Build exe with pyinstaller
       run: |
