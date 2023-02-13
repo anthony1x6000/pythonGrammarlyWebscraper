@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
-import requests, sys, re
+import requests, sys, re, os
+
+env_file = os.getenv('GITHUB_ENV')
 
 site = "https://github.com/ungoogled-software/ungoogled-chromium-windows/releases"
 site = requests.get(site).content
@@ -35,7 +37,7 @@ webdriverVersion = re.findall(versionPattern, webdriverFTP)
 webdriverDL = f"https://chromedriver.storage.googleapis.com/{webdriverVersion[0]}/chromedriver_win32.zip"
 print(webdriverDL)
 
-with open("variables.txt", "w") as file:
+with open(env_file, "a") as file:
     file.write(f"webdriverDL={webdriverDL}\n")
     file.write(f"x64DL={x64DL}\n")
     file.write(f"chromium=ungoogled-chromium_{mostRecent}_windows_x64.zip\n")
