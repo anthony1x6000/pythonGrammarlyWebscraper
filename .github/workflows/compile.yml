@@ -5,10 +5,6 @@ on:
     paths:
       - '**.py'
       - 'drivers/**'
-  schedule:
-      - cron:  '0 0 */30 * *'
-  release:
-    types: [created]
   workflow_dispatch:
     branches:
     - main 
@@ -83,26 +79,6 @@ jobs:
         unzip browser.zip -d compiled/drivers
         mv compiled/drivers/ungoogled-chromium_${chromeVersion}_windows compiled/drivers/browser
 
-    # - name: Build exe with pyinstaller
-    #   run: |
-    #     cd $GITHUB_WORKSPACE
-    #     mv compiled webscraperGrammarly
-    #     cd webscraperGrammarly
-    #     echo "Current DIR and contents"
-    #     pwd
-    #     ls
-    #     echo "Running pyinstaller"
-    #     pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ico.png" --icon "build/ico.ico" --name "webscraperGrammarly" --add-data "drivers:drivers/" "main.py"
-    #     echo "Done pyinstaller"
-    #     cd $GITHUB_WORKSPACE
-    #     ls
-    #     mv webscraperGrammarly/out/webscraperGrammarly/ exeWebscraperGrammarly
-
-    # - name: Zip exe
-    #   run: |
-    #     zip -r compiledEXE-Win64.zip exeWebscraperGrammarly/
-    #   if: github.event_name == 'release'
-
     - name: Zip compiled directory
       run: |
         ls
@@ -116,21 +92,3 @@ jobs:
       with:
         name: compiled-Win64
         path: webscraperGrammarly/
-      
-    # - name: Upload exe artifact
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: compiledEXE-Win64
-    #     path: exeWebscraperGrammarly/
-        
-    - name: Release Asset
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        files: compiled-Win64.zip
-        body: " \n\nDownload compiled-Win64.zip for a quick setup. Just unzip and run main.py."
-        append_body: true
-        draft: false
-        prerelease: false
-      if: github.event_name == 'release'
