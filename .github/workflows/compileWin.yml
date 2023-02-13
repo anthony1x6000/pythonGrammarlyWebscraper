@@ -50,7 +50,7 @@ jobs:
           [Environment]::SetEnvironmentVariable($_ -split '=', ($_ -split '=', 2)[1], 'User')
         }
 
-      # webdriverDL: ${{ env.webdriverDL }}
+      # webdriverDL: $env:webdriverDL
       # x64DL: ${{ env.x64DL }}
       # chromium: ${{ env.chromium }}
       # driver: ${{ env.driver }}
@@ -71,10 +71,10 @@ jobs:
 
     - name: Download URLs
       run: |
-        echo "webdriverDL: ${{ env.webdriverDL }}"
-        echo "x64DL: ${{ env.x64DL}}"
-        Invoke-WebRequest -Uri ${{ env.webdriverDL }} -OutFile webdriver.zip
-        Invoke-WebRequest -Uri ${{ env.x64DL}} -OutFile browser.zip
+        echo "webdriverDL: $env:webdriverDL"
+        echo "x64DL: $env:x64DL"
+        Invoke-WebRequest -Uri $env:webdriverDL -OutFile webdriver.zip
+        Invoke-WebRequest -Uri $env:x64DL -OutFile browser.zip
 
 
     - name: Extract webdriver and browser
