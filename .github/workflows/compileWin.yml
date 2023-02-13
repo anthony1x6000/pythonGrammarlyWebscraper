@@ -60,7 +60,7 @@ jobs:
     - name: Move necessary files to compiled
       run: |
         dir
-        cd ${{ env.GITHUB_WORKSPACE}}
+        cd $env:GITHUB_WORKSPACE
         dir
         New-Item -ItemType Directory -Path compiled
         Copy-Item -Path main.py, requirements.txt -Destination compiled
@@ -86,7 +86,7 @@ jobs:
 
     - name: Build exe with pyinstaller
       run: |
-        cd ${{ env.GITHUB_WORKSPACE}}
+        cd $env:GITHUB_WORKSPACE
         Move-Item -Path compiled -Destination webscraperGrammarly
         cd webscraperGrammarly
         Write-Host "Current DIR and contents"
@@ -95,7 +95,7 @@ jobs:
         Write-Host "Running pyinstaller"
         pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ICO.png" --icon "build/ICO.ico" --name "webscraperGrammarly" --add-data "drivers:drivers/" "main.py"
         Write-Host "Done pyinstaller"
-        cd ${{ env.GITHUB_WORKSPACE}}
+        cd $env:GITHUB_WORKSPACE
         Get-ChildItem
         Move-Item -Path webscraperGrammarly/out/webscraperGrammarly/ -Destination exeWebscraperGrammarly
 
@@ -108,7 +108,7 @@ jobs:
     - name: Zip compiled directory
       run: |
         Get-ChildItem
-        cd ${{ env.GITHUB_WORKSPACE}}
+        cd $env:GITHUB_WORKSPACE
         Move-Item -Path compiled -Destination webscraperGrammarly
         Add-Type -AssemblyName System.IO.Compression.FileSystem
         [System.IO.Compression.ZipFile]::CreateFromDirectory("webscraperGrammarly", "compiled-Win64.zip")
