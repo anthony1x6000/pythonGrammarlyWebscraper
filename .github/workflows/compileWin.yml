@@ -23,7 +23,6 @@ jobs:
       with:
         ref: main
 
-        Get-Content -Path build/requirements.txt
     # - name: DIRECTORY STUFF
     #   run: |
     #     echo "Current directory: $(Get-Location)"
