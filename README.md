@@ -22,6 +22,10 @@ Steps for using this script.
 
 Download a JSON cookie editor like [Cookie-Editor](https://chrome.google.com/webstore/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) on chrome web store. Firefox users will have to rethink their life decisions.
 
+Then watch this video: 
+
+[![thumb](https://cdn.jwplayer.com/v2/media/hJQTmCmA/thumbnails/qDdGYZP3.jpg)](https://jwp.io/s/AwuwkVsG)
+
 ## Executable
 
 Download ``compiledEXE-Win64.zip`` in the [most recent release](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/releases/), extract it, and then run ``webscraperGrammarly.exe`` You do not need to allow the program firewall access. You can also look at the [successful builds](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/actions/workflows/compileWin.yml?query=is%3Asuccess) and download the zip from there. [Download guide (download compiledEXE-Win64.zip)](https://files.catbox.moe/9eg2sh.webp).
