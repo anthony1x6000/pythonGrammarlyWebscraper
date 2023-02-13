@@ -118,7 +118,7 @@ jobs:
         Get-Location
         Get-ChildItem
         Write-Host "Running pyinstaller"
-        pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ICO.png" --icon "build/ICO.ico" --name "webscraperGrammarly" --add-data "drivers:drivers/" "main.py"
+        pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ICO.png" --icon "build/ICO.ico" --name "webscraperGrammarly" --add-data "drivers;drivers/" "main.py"
         Write-Host "Done pyinstaller"
         cd $env:GITHUB_WORKSPACE
         Get-ChildItem
