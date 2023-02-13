@@ -41,16 +41,18 @@ jobs:
         pip install -r build/requirements.txt
         python build/compile.py
 
-    - name: Read variables from file
+    - name: Set the environment variables
       run: |
         Get-Content variables.txt | ForEach-Object {
           $var = $_ -split '='
-          echo "Setting environment variable $($var[0]) with value $($var[1])"
-          [Environment]::SetEnvironmentVariable($var[0], $var[1], 'User')
+          echo "$($var[0])=$($var[1])" >> $GITHUB_ENV
         }
 
-    - name: Test environment variables
+    - name: Use the environment variables
       run: |
+        $envVars = Get-Content $GITHUB_ENV | ForEach-Object {
+          [Environment]::SetEnvironmentVariable($_ -split '=', ($_ -split '=', 2)[1], 'User')
+        }
         Write-Output "webdriverDL is $env:webdriverDL"
         Write-Output "x64DL is $env:x64DL"
         Write-Output "chromium is $env:chromium"
