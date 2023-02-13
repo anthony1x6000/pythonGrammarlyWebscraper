@@ -129,7 +129,7 @@ jobs:
         files: |
           compiled-Win64.zip
           compiledEXE-Win64.zip
-        body: " \n\nDownload ``compiledEXE-Win64.zip`` for zero effort. Just unzip and run ``webscraperGrammarly.exe``"
+        body: " \n\nDownload ``compiledEXE-Win64.zip`` for zero effort. Just unzip it and run ``webscraperGrammarly.exe``\nOr, downlaod ``compiled-Win64.zip`` and run main.py"
         append_body: true
         draft: false
         prerelease: false
