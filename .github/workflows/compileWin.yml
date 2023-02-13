@@ -114,12 +114,13 @@ jobs:
         cd $env:GITHUB_WORKSPACE
         Move-Item -Path compiled -Destination webscraperGrammarly
         cd webscraperGrammarly
-        Write-Host "Current DIR and contents"
+        echo "Current DIR and contents"
         Get-Location
-        Get-ChildItem
-        Write-Host "Running pyinstaller"
+        dir
+        pip install -r requirements.txt
+        echo "Running pyinstaller"
         pyinstaller --noconfirm --onedir --console --distpath "out/" --splash "build/ICO.png" --icon "build/ICO.ico" --name "webscraperGrammarly" --add-data "drivers;drivers/" "main.py"
-        Write-Host "Done pyinstaller"
+        echo "Done pyinstaller"
         cd $env:GITHUB_WORKSPACE
         Get-ChildItem
         Move-Item -Path webscraperGrammarly/out/webscraperGrammarly/ -Destination exeWebscraperGrammarly
