@@ -26,9 +26,23 @@ Download ``compiledEXE-Win64.zip`` in the [most recent release](https://github.c
 
 Download a JSON cookie editor like [Cookie-Editor](https://chrome.google.com/webstore/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) on chrome web store. Firefox users will have to rethink their life decisions.
 
-Then watch this video: 
+Then watch this video:
 
 [![thumb](https://cdn.jwplayer.com/v2/media/hJQTmCmA/thumbnails/qDdGYZP3.jpg)](https://jwp.io/s/AwuwkVsG)
+
+# Config.json
+
+Config.json in drivers provides some settings you can toggle.
+
+Here is a brief explaination of what the main settings do:
+
+- nosplash: "true" removes the [splash screen](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/blob/main/build/ico.png) from showing on start. Default is "false" because I like the picture.
+- headless: "false" makes the script show a browser window of the script testing out cookies. Default is "true" because it looks cooler with just a terminal window. Setting to "false" headless may increase performance on some machines.
+- w{Height/Width}: Sets the height and width of the browser window. The setting don't matter if headless is set to "true."
+
+# Other Installation Methods
+
+Other ways to install and use this script.
 
 ## Compiled Python install
 
