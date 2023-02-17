@@ -2,21 +2,33 @@ import requests, shutil, os, pyperclip, json, random, string, logging, sys, date
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from contextlib import suppress
-from time import sleep
 from urllib.parse import urlparse
 #############################################################
 # \/\/ Webdriver & browser stuff \/\/
 try:
-    import pyi_splash
-    pyi_splash.close()
+    with open('config.json') as config_file:
+        data = json.load(config_file)
+    doHeadless = data['headless']
+    width = data['wWidth']
+    height = data['wHeight']
+    nosplash = data['nosplash']
+except (FileNotFoundError, json.JSONDecodeError):
+    doHeadless = True
+    pass
+try:
+    if not nosplash:
+        import pyi_splash
+        pyi_splash.close()
 except:
     pass
 driver_path = 'drivers/chromedriver.exe'
 chrome_path = 'drivers/browser/chrome.exe'
 option = webdriver.ChromeOptions()
 option.binary_location = chrome_path
-# option.add_argument("--disable-gpu, --window-size=640,480")
-option.add_argument("--headless")
+if doHeadless:
+    option.add_argument("--headless")
+else:
+    option.add_argument(f"--window-size={width},{height}")
 option.add_argument("--disable-gpu")
 option.add_experimental_option("excludeSwitches", ["enable-logging"])
 with suppress(Exception): # Load prefrences file
@@ -29,16 +41,12 @@ siteSet = "https://www.grammarly.com/"
 loggedIn = "https://app.grammarly.com/" # Logged in page
 ranAlready = False
 foundWorking = False
-Debug = False
 noscrape = False
 # /\/\/\ Constants /\/\/\
 print("Starting Script")
 if (noscrape):
     print("!!!WARNING!!!")
     print(" noscrape is TRUE")
-if (Debug):
-    print("!!!WARNING!!!")
-    print(" Debug is TRUE")
 print("Starting browser...")
 browser = webdriver.Chrome(executable_path=driver_path, options=option)
 # \/\/\/ Classes & Def \/\/\/
@@ -108,7 +116,6 @@ def siteInit(baseurl, postXpath, urlCount, nojs=False, *countBypass):
     baseurl = dec64(baseurl)
     if (noscrape or foundWorking):
         return
-
     sites = []
     if (countBypass):
         count = countBypass[0]['ovride']

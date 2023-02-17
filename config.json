@@ -1,0 +1,6 @@
+{
+    "nosplash": false, 
+    "headless": true, 
+    "wHeight": 640,
+    "wWidth": 480
+}
