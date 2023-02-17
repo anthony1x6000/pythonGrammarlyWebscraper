@@ -3,6 +3,7 @@ __pycache__
 hidden/
 /drivers/**
 !/drivers/Preferences
+!/drivers/config.json
 
 # Generated Files
 temp*

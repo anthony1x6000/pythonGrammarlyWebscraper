@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 #############################################################
 # \/\/ Webdriver & browser stuff \/\/
 try:
-    with open('config.json') as config_file:
+    with open('drivers/config.json') as config_file:
         data = json.load(config_file)
     doHeadless = data['headless']
     width = data['wWidth']
