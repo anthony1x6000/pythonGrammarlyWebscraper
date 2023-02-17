@@ -20,7 +20,7 @@ Steps for using this script.
 
 ## Executable
 
-Download ``compiledEXE-Win64.zip`` in the [most recent release](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/releases/), extract it, and then run ``webscraperGrammarly.exe`` You do not need to allow the program firewall access. You can also look at the [successful builds](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/actions/workflows/compileWin.yml?query=is%3Asuccess) and download the zip from there. [Download guide (download compiledEXE-Win64.zip)](https://files.catbox.moe/9eg2sh.webp).
+Download ``compiledEXE-Win64.zip`` in the [most recent release](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/releases/), extract it, and then run ``webscraperGrammarly.exe`` You may need to allow the program firewall access if you experience connection problems. You can also look at the [successful builds](https://github.com/anthony1x6000/pythonGrammarlyWebscraper/actions/workflows/compileWin.yml?query=is%3Asuccess) and download the zip from there. [Download guide (download compiledEXE-Win64.zip)](https://files.catbox.moe/9eg2sh.webp).
 
 ## Importing cookies
 
