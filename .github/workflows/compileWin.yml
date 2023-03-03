@@ -5,13 +5,15 @@ on:
     paths:
       - '**.py'
       - 'drivers/**'
+    tags-ignore:
+      - '*'
   schedule:
-      - cron:  '0 0 */30 * *'
+    - cron: '0 0 */30 * *'
   release:
     types: [created]
   workflow_dispatch:
     branches:
-    - main 
+      - main
 
 jobs:
   build:
