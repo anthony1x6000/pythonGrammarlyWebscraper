@@ -1,18 +1,16 @@
 # Python 3 Cookie Webscraper | Windows x64 |
 
 ```
- __   _ _____ _  _  _   
- | \  ||     ||  |  |   
- |  \_||_____||__|__|   
- _  _  _ _____  _______     ________   _ ______  /
- |  |  ||     ||_____/|____/   |  | \  ||  ____ / 
- |__|__||_____||    \_|    \___|__|  \_||_____|.  
-```
-
-## Disclaimer
-
 This script is for educational purposes only.
-Script is intended to demonstrate the capabilities of webscraping.
+This script intends to demonstrate the capabilities of web scraping. I have never personally used this script, even for testing.
+All videos and other related media that showcase this script are emulated with computer animation software and are not genuine examples of the script/program in action ;)
+This repository does not host any accounts or account information. It only retrieves relevant information. 
+Before using this script, ensure it complies with local or federal laws within your region. 
+
+Therefore, I should not be held liable for any damages or fines from a breach of the terms of 
+service.
+If there are any problems, contact me. 
+```
 
 # Setup
 
@@ -28,7 +26,7 @@ Download a JSON cookie editor like [Cookie-Editor](https://chrome.google.com/web
 
 Then watch this video:
 
-[![thumb](https://cdn.jwplayer.com/v2/media/hJQTmCmA/thumbnails/qDdGYZP3.jpg)](https://jwp.io/s/AwuwkVsG)
+[![thumb](https://cdn.jwplayer.com/v2/media/hJQTmCmA/thumbnails/qDdGYZP3.jpg)](https://anthonyonline.cf/src/tupygrammarly.mp4)
 
 # Config.json
 
