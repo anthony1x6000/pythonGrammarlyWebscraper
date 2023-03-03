@@ -11,7 +11,6 @@ mostRecent = soup.find('a', attrs={'class':'Link--primary'}).text
 
 x64DL = f"https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/{mostRecent}/ungoogled-chromium_{mostRecent}_windows_x64.zip"
 print(x64DL)
-# 109.0.5414.120-1.1
 
 site = "https://chromedriver.chromium.org/downloads"
 site = requests.get(site).content
@@ -33,7 +32,6 @@ for i in webdriverMatches:
         webdriverFTP = i
         break
 webdriverVersion = re.findall(versionPattern, webdriverFTP)
-# https://chromedriver.storage.googleapis.com/109.0.5414.74/chromedriver_win32.zip
 webdriverDL = f"https://chromedriver.storage.googleapis.com/{webdriverVersion[0]}/chromedriver_win32.zip"
 print(webdriverDL)
 
