@@ -26,7 +26,7 @@ jobs:
         ref: main
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.9
 
@@ -112,13 +112,13 @@ jobs:
         [System.IO.Compression.ZipFile]::CreateFromDirectory("webscraperGrammarly", "compiled-Win64.zip")
       if: github.event_name == 'release'
     - name: Upload python artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: compiled-Win64
         path: webscraperGrammarly/
 
     - name: Upload exe artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: compiledEXE-Win64
         path: exeWebscraperGrammarly/
