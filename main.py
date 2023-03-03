@@ -53,13 +53,12 @@ browser = webdriver.Chrome(executable_path=driver_path, options=option)
 def SiteScrapeNoJS(siteList, postXpath):
     try: 
         domain = urlparse(siteList[0]).netloc
-        print("Using site:", domain)
         for site in siteList:
+            print(" Site:", site)
             if (foundWorking): return
             site = requests.get(site).content
             soup = BeautifulSoup(site, 'html.parser')
             cookie = soup.find('code', attrs={'class':f'{postXpath}'}).text
-            # print(" URL: ", site)
             print("Got text")
             Verify(cookie)
     except Exception as e:
@@ -129,7 +128,8 @@ def siteInit(baseurl, postXpath, urlCount, nojs=False, *countBypass):
             sites.append(finalURL)
         if nojs:
             SiteScrapeNoJS(sites, postXpath)
-        SiteScrape(sites, postXpath)
+        else: 
+            SiteScrape(sites, postXpath)
 def dec64(encoded_string):
     decoded_string = base64.b64decode(encoded_string)
     return decoded_string.decode()
@@ -147,7 +147,7 @@ def postNum():
 # /\/\/\ Classes & Def /\/\/\
 vcount = 0
 # siteInit("URL", "XPATH", COOKIESITECOUNT)
-siteInit("aHR0cHM6Ly9pbmZva2lrLmNvbS9ncmFtbWFybHktJWQ=", "language-markup", 4, True) # American (better) english is more common here.
+siteInit("aHR0cHM6Ly9pbmZva2lrLmNvbS9ncmFtbWFybHktJWQ=", 'language-markup', 4, True) # American (better) english is more common here.
 siteInit("aHR0cHM6Ly93d3cubGlua3N0cmlja3MuY29tL2dyYW1tYXJseS1jb29raWVzLSVk", 'language-json', 6, True)
 
 
