@@ -41,24 +41,40 @@ siteSet = "https://www.grammarly.com/"
 loggedIn = "https://app.grammarly.com/" # Logged in page
 ranAlready = False
 foundWorking = False
-noscrape = False
 # /\/\/\ Constants /\/\/\
-print("Starting Script")
-if (noscrape):
-    print("!!!WARNING!!!")
-    print(" noscrape is TRUE")
-print("Starting browser...")
+print("Started Script")
+print(" Starting browser...")
 browser = webdriver.Chrome(executable_path=driver_path, options=option)
 # \/\/\/ Classes & Def \/\/\/
+def siteInit(baseurl, postXpath, urlCount, nojs=False, *countBypass):
+    baseurl = dec64(baseurl)
+    if foundWorking:
+        return
+    sites = []
+    if countBypass:
+        count = countBypass[0]['ovride']
+        finalURL = baseurl % count
+        sites.append(finalURL)
+    else:
+        count = 1
+        for i in range(urlCount):
+            finalURL = baseurl % count
+            count += 1
+            sites.append(finalURL)
+        if nojs:
+            SiteScrapeNoJS(sites, postXpath)
+        else: 
+            SiteScrape(sites, postXpath)
 def SiteScrapeNoJS(siteList, postXpath):
     try: 
         domain = urlparse(siteList[0]).netloc
         for site in siteList:
             print(" Site:", site)
-            if (foundWorking): return
+            if foundWorking: 
+                return
             site = requests.get(site).content
             soup = BeautifulSoup(site, 'html.parser')
-            cookie = soup.find('code', attrs={'class':f'{postXpath}'}).text
+            cookie = soup.find('code', attrs={'class': f'{postXpath}'}).text
             print("Got text")
             Verify(cookie)
     except Exception as e:
@@ -111,25 +127,6 @@ def Verify(verifyThis):
             print("URL BAD, Cookie didn't work\n================================")
     except Exception as e:
         print("Exception:", e)
-def siteInit(baseurl, postXpath, urlCount, nojs=False, *countBypass):
-    baseurl = dec64(baseurl)
-    if (noscrape or foundWorking):
-        return
-    sites = []
-    if (countBypass):
-        count = countBypass[0]['ovride']
-        finalURL = (baseurl % count)
-        sites.append(finalURL)
-    else:
-        count = 1
-        for i in range(urlCount):
-            finalURL = (baseurl % (count))
-            count += 1
-            sites.append(finalURL)
-        if nojs:
-            SiteScrapeNoJS(sites, postXpath)
-        else: 
-            SiteScrape(sites, postXpath)
 def dec64(encoded_string):
     decoded_string = base64.b64decode(encoded_string)
     return decoded_string.decode()
